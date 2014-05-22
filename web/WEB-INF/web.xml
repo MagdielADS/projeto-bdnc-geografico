@@ -4,9 +4,17 @@
         <servlet-name>obterGeometria</servlet-name>
         <servlet-class>servlets.obterGeometria</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>obterMunicipiosRaio</servlet-name>
+        <servlet-class>servlets.obterMunicipiosRaio</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>obterGeometria</servlet-name>
         <url-pattern>/obterGeometria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>obterMunicipiosRaio</servlet-name>
+        <url-pattern>/obterMunicipiosRaio</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

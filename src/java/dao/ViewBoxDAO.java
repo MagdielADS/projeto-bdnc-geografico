@@ -120,6 +120,22 @@ public class ViewBoxDAO {
             connection.close();
         }
         return viewBox;
-    }   
+    }
+    
+    public String getTamanhoViewBox(String geometria) throws SQLException{
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        String sql = "SELECT getTamanhoViewBox('"+geometria+"') as viewBox";
+        //System.out.println(sql);
+        String viewBox = null;
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+            viewBox = resultSet.getString("viewBox");
+        }finally{
+            connection.close();
+        }
+        return viewBox;
+    }
     
 }

@@ -23,7 +23,7 @@ public class GeometriaDAO {
    }
    
    public String getGeometriaMunicipio(String nomeMunicipio) throws SQLException{
-       String sql = "SELECT ST_AsSVG(the_geom) as theGeom FROM municipio WHERE nome_municipio ilike ?";
+       String sql = "SELECT the_geom as theGeom FROM municipio WHERE nome_municipio ilike ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try {
@@ -35,12 +35,11 @@ public class GeometriaDAO {
        } finally {
            connection.close();
        }
-       System.out.println(nomeMunicipio);
        return theGeomAsText;
    }
    
    public String getGeometriaEstado(String siglaEstado) throws SQLException{
-       String sql = "SELECT ST_AsSVG(the_geom) as theGeom FROM estado WHERE sigla_estado ilike ?";
+       String sql = "SELECT the_geom as theGeom FROM estado WHERE sigla_estado ilike ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try {
@@ -56,7 +55,7 @@ public class GeometriaDAO {
    }
    
    public String getGeometriaMicro(String nomeMicro) throws SQLException{
-       String sql = "SELECT ST_AsSVG(the_geom) as theGeom FROM microrregiao WHERE nome_micro ilike ?";
+       String sql = "SELECT the_geom as theGeom FROM microrregiao WHERE nome_micro ilike ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try {
@@ -72,7 +71,7 @@ public class GeometriaDAO {
    }
 
    public String getGeometriaMeso(String nomeMeso) throws SQLException{
-       String sql = "SELECT ST_AsSVG(the_geom) as theGeom FROM mesorregiao WHERE nome_meso ilike ?";
+       String sql = "SELECT the_geom as theGeom FROM mesorregiao WHERE nome_meso ilike ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try {
@@ -88,7 +87,7 @@ public class GeometriaDAO {
    }
    
    public String getGeometriaRegiao(String nomeRegiao) throws SQLException{
-       String sql = "SELECT ST_AsSVG(the_geom) as theGeom FROM regiao WHERE nome_regiao ilike ?";
+       String sql = "SELECT the_geom as theGeom FROM regiao WHERE nome_regiao ilike ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try {
@@ -103,18 +102,15 @@ public class GeometriaDAO {
        return theGeomAsText;
    }
    
-   public String getGeometriaPeloRaioCidade(String nomeMunicipio, int raioKm) throws SQLException{
-       String sql = "SELECT ST_UNION(M.the_geom) AS theGeom"
-               + "FROM municipio M "
-               + "WHERE ST_DISTANCE(ST_CENTROID(M.the_geom), (SELECT ST_CENTROID(the_geom) FROM municipio WHERE nome_municipio ilike ?)) * 111.32 <= ?"
-               + "AND ST_DISTANCE(ST_CENTROID(M.the_geom), (SELECT ST_CENTROID(the_geom) FROM municipio WHERE nome_municipio ilike '?')) * 111.32 > 0";
+   public String getGeometriaPeloRaioDeUmPonto(double latitude, double longitude, int raioKm) throws SQLException{
+       String sql = "SELECT (ST_UNION(the_geom)) as theGeom FROM municipio WHERE ST_DISTANCE(the_geom,ST_Point(?, ?)) * 111.32 <= ?";
        String theGeomAsText = null;
        Connection connection = ConnectionFactory.getInstance().getConnection();
        try{
            PreparedStatement stmt = connection.prepareStatement(sql);
-           stmt.setString(1, nomeMunicipio);
-           stmt.setInt(2, raioKm);
-           stmt.setString(3, nomeMunicipio);
+           stmt.setDouble(1, longitude);
+           stmt.setDouble(2, latitude);
+           stmt.setInt(3, raioKm);
            ResultSet resultSet = stmt.executeQuery();
            resultSet.next();
            theGeomAsText = resultSet.getString("theGeom");
@@ -122,6 +118,22 @@ public class GeometriaDAO {
            connection.close();
        }
        return theGeomAsText;
+   }
+   
+   public String getGeometriaAsSVG(String geometria) throws SQLException{
+       String sql = "SELECT ST_AsSVG(?) as SVG";
+       Connection connection = ConnectionFactory.getInstance().getConnection();
+       String svg = null;
+       try{
+           PreparedStatement stmt = connection.prepareCall(sql);
+           stmt.setString(1, geometria);
+           ResultSet resultSet = stmt.executeQuery();
+           resultSet.next();
+           svg = resultSet.getString("SVG");
+       }finally{
+           connection.close();
+       }
+       return svg;
    }
    
 }

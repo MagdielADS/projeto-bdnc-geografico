@@ -9,11 +9,9 @@ package servlets;
 import dao.GeometriaDAO;
 import dao.ViewBoxDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,37 +36,44 @@ public class obterGeometria extends HttpServlet {
         try {
             response.setContentType("text/html;charset=UTF-8");
             request.setCharacterEncoding("UTF-8");
-            GeometriaDAO geometriaDao = new GeometriaDAO();
+            GeometriaDAO geometriaDAO = new GeometriaDAO();
             ViewBoxDAO viewBoxDAO = new ViewBoxDAO();
             String nomeGeometria = request.getParameter("nomeGeometria");
             String tipo = request.getParameter("tipo");
             String geometria = null;
+            String geometriaSVG = null;
             String viewBox = null;
             switch(tipo){
                 case "municipio":
-                    geometria = geometriaDao.getGeometriaMunicipio(nomeGeometria);
-                    viewBox = viewBoxDAO.getViewBoxMunicipio(nomeGeometria);
+                    geometria = geometriaDAO.getGeometriaMunicipio(nomeGeometria);
+                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
                     break;
                 case "estado":
-                    geometria = geometriaDao.getGeometriaEstado(nomeGeometria);
-                    viewBox = viewBoxDAO.getViewBoxEstado(nomeGeometria);
+                    geometria = geometriaDAO.getGeometriaEstado(nomeGeometria);
+                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
                     break;
                 case "microrregiao":
-                    geometria = geometriaDao.getGeometriaMicro(nomeGeometria);
-                    viewBox = viewBoxDAO.getViewBoxMicro(nomeGeometria);
+                    geometria = geometriaDAO.getGeometriaMicro(nomeGeometria);
+                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
                     break;
                 case "messorregiao":
-                    geometria = geometriaDao.getGeometriaMeso(nomeGeometria);
-                    viewBox = viewBoxDAO.getViewBoxMeso(nomeGeometria);
+                    geometria = geometriaDAO.getGeometriaMunicipio(nomeGeometria);
+                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
                     break;
                 case "regiao":
-                    geometria = geometriaDao.getGeometriaRegiao(nomeGeometria);
-                    viewBox = viewBoxDAO.getViewBoxRegiao(nomeGeometria);
+                    geometria = geometriaDAO.getGeometriaRegiao(nomeGeometria);
+                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
                     break;
             }
-            request.setAttribute("geometria", geometria);
+            request.setAttribute("geometria", geometriaSVG);
             request.setAttribute("nomeGeometria", nomeGeometria);
             request.setAttribute("viewBox", viewBox);
+            request.setAttribute("desenharGeometria", true);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             
         } catch (SQLException ex) {

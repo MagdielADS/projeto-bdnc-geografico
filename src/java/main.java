@@ -1,5 +1,6 @@
 
 import dao.GeometriaDAO;
+import dao.ViewBoxDAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +18,10 @@ import java.util.logging.Logger;
 public class main {
     public static void main(String[] args) {
         GeometriaDAO geometriaDAO = new GeometriaDAO();
+        ViewBoxDAO viewBoxDAO = new ViewBoxDAO();
         try {
-            System.out.println(geometriaDAO.getGeometriaMunicipio("São Paulo"));
+            System.out.println(viewBoxDAO.getTamanhoViewBox(geometriaDAO.getGeometriaMunicipio("cajazeiras")));
+            //System.out.println(geometriaDAO.getGeometriaMunicipio("Cajazeiras"));
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

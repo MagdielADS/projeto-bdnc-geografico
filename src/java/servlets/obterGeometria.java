@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mapa.Mapa;
 
 /**
  *
@@ -40,38 +41,32 @@ public class obterGeometria extends HttpServlet {
             ViewBoxDAO viewBoxDAO = new ViewBoxDAO();
             String nomeGeometria = request.getParameter("nomeGeometria");
             String tipo = request.getParameter("tipo");
-            String geometria = null;
-            String geometriaSVG = null;
             String viewBox = null;
+            Mapa mapa = null;
             switch(tipo){
                 case "municipio":
-                    geometria = geometriaDAO.getGeometriaMunicipio(nomeGeometria);
-                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
-                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
+                    mapa = geometriaDAO.getMapaMunicipio(nomeGeometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
                 case "estado":
-                    geometria = geometriaDAO.getGeometriaEstado(nomeGeometria);
-                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
-                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
+                    mapa = geometriaDAO.getMapaEstado(nomeGeometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
                 case "microrregiao":
-                    geometria = geometriaDAO.getGeometriaMicro(nomeGeometria);
-                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
-                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
+                    mapa = geometriaDAO.getMapaMicro(nomeGeometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
                 case "messorregiao":
-                    geometria = geometriaDAO.getGeometriaMunicipio(nomeGeometria);
-                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
-                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
+                    mapa = geometriaDAO.getMapaMeso(nomeGeometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
                 case "regiao":
-                    geometria = geometriaDAO.getGeometriaRegiao(nomeGeometria);
-                    geometriaSVG  = geometriaDAO.getGeometriaAsSVG(geometria);
-                    viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
+                    mapa = geometriaDAO.getMapaRegiao(nomeGeometria);
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
             }
-            request.setAttribute("geometria", geometriaSVG);
-            request.setAttribute("nomeGeometria", nomeGeometria);
+            request.setAttribute("geometria", mapa.getGeometriaSVG());
+            request.setAttribute("nomeGeometria", mapa.getNome());
             request.setAttribute("viewBox", viewBox);
             request.setAttribute("desenharGeometria", true);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);

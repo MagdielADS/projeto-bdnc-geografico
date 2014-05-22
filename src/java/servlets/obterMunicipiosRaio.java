@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import mapa.Mapa;
 
 /**
  *
@@ -43,11 +44,11 @@ public class obterMunicipiosRaio extends HttpServlet {
             double longitude = Double.parseDouble(request.getParameter("longitude"));
             int raioKm = Integer.parseInt(request.getParameter("raio"));
             String nomeGeometria = "Cidades: em um raio de "+raioKm+" Km "+"do ponto: "+latitude+" "+longitude; 
-            String geometria = geometriaDao.getGeometriaPeloRaioDeUmPonto(latitude, longitude, raioKm);
-            String geometriaSVG = geometriaDao.getGeometriaAsSVG(geometria);
-            String viewBox = viewBoxDAO.getTamanhoViewBox(geometria);
-            
-            request.setAttribute("geometria", geometriaSVG);
+            Mapa mapa = geometriaDao.getMapaPeloRaioDeUmPonto(latitude, longitude, raioKm, nomeGeometria);
+
+            String viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+           
+            request.setAttribute("geometria", mapa.getGeometriaSVG());
             request.setAttribute("nomeGeometria", nomeGeometria);
             request.setAttribute("viewBox", viewBox);
             request.setAttribute("desenharGeometria", true);

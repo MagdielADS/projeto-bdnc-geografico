@@ -7,6 +7,7 @@
 package dao;
 
 import connection.ConnectionFactory;
+import coordenadas.Coordenadas;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -120,6 +121,22 @@ public class GeometriaDAO {
        }
        return mapa;
    }
+   
+   public Coordenadas getCoordenadasDeUmPonto(String geometria) throws SQLException{
+       String sql = "SELECT ST_Y('"+geometria+"') AS latitude, ST_X('"+geometria+"') AS longitude";
+       Connection connection = ConnectionFactory.getInstance().getConnection();
+       Coordenadas coordenadas;
+       try{
+           PreparedStatement stmt = connection.prepareStatement(sql);
+           ResultSet resultSet = stmt.executeQuery();
+           resultSet.next();
+           coordenadas = new Coordenadas(resultSet.getString("latitude"), resultSet.getString("longitude"));
+       }finally{
+           connection.close();
+       }
+       return coordenadas;
+   }
+   
 //   
 //   public String getGeometriaAsSVG(String geometria) throws SQLException{
 //       String sql = "SELECT ST_AsSVG(?) as SVG";
@@ -136,5 +153,7 @@ public class GeometriaDAO {
 //       }
 //       return svg;
 //   }
+   
+   
    
 }

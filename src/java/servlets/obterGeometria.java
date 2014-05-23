@@ -6,6 +6,7 @@
 
 package servlets;
 
+import coordenadas.Coordenadas;
 import dao.GeometriaDAO;
 import dao.ViewBoxDAO;
 import java.io.IOException;
@@ -43,10 +44,12 @@ public class obterGeometria extends HttpServlet {
             String tipo = request.getParameter("tipo");
             String viewBox = null;
             Mapa mapa = null;
+            Coordenadas coordenadas;
             switch(tipo){
                 case "municipio":
                     mapa = geometriaDAO.getMapaMunicipio(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    
                     break;
                 case "estado":
                     mapa = geometriaDAO.getMapaEstado(nomeGeometria);

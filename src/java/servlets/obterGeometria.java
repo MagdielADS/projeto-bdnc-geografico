@@ -17,7 +17,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lerArquivo.LerArquivoXML;
 import mapa.Mapa;
+import previsao.Previsao;
 
 /**
  *
@@ -45,11 +47,21 @@ public class obterGeometria extends HttpServlet {
             String viewBox = null;
             Mapa mapa = null;
             Coordenadas coordenadas;
+            
+          
             switch(tipo){
                 case "municipio":
                     mapa = geometriaDAO.getMapaMunicipio(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    String centroid = geometriaDAO.getCentroidDeUmaGeometria(mapa.getGeometria());
+                    coordenadas = geometriaDAO.getCoordenadasDeUmPonto(centroid);
                     
+                    request.setAttribute("getx", coordenadas.getLatitude());
+                    request.setAttribute("gety", coordenadas.getLongitude());
+                    
+                    LerArquivoXML laXML = new LerArquivoXML(coordenadas);
+                    Previsao previsao = laXML.lerAquivoRtornandoPrevisao();
+                    request.setAttribute("segmax", previsao.getMaximas().get(2));
                     break;
                 case "estado":
                     mapa = geometriaDAO.getMapaEstado(nomeGeometria);

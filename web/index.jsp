@@ -33,7 +33,12 @@
                 <input type="text" name="longitude" placeholder="Longintude">
                 <input type="text" name="raio" placeholder="Raio">
                 <input type="submit" value="Pesquisar">
-            </form>                
+            </form> 
+        
+        <p>
+            ${getx}
+            ${gety}
+        </p>
                 
             <?xml version='1.0' encoding='utf-8' ?>
             <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1 Basic//EN'
@@ -44,7 +49,7 @@
 		width='800' height='800' viewBox='${viewBox}'>
                 <script type='text/ecmascript' xlink:href='js/funcoes.js'> </script>
                 <g id='grupo'>
-                    <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0002' 
+                    <path id='${segmax}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0002' 
                       onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${geometria}'/>
 	        </g>
 		</svg>

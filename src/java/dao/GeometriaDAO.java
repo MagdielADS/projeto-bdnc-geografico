@@ -137,6 +137,22 @@ public class GeometriaDAO {
        return coordenadas;
    }
    
+   public String getCentroidDeUmaGeometria(String geometria) throws SQLException{
+       String sql = "SELECT ST_CENTROID('"+geometria+"') AS centroide";
+       Connection connection = ConnectionFactory.getInstance().getConnection();
+       String centroide;
+       
+       try {
+           PreparedStatement stmt = connection.prepareStatement(sql);
+           ResultSet resultSet = stmt.executeQuery();
+           resultSet.next();
+           centroide = resultSet.getString("centroide");
+       } finally {
+           connection.close();
+       }
+       return centroide;
+   }
+   
 //   
 //   public String getGeometriaAsSVG(String geometria) throws SQLException{
 //       String sql = "SELECT ST_AsSVG(?) as SVG";

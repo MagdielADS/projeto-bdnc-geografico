@@ -104,6 +104,21 @@ public class GeometriaDAO {
        return mapa;
    }
    
+   public Mapa getMapaBrasil() throws SQLException{
+       String sql = "SELECT the_geom as theGeom, ST_AsSVG(the_geom) AS svg from pais";
+       Connection connection = ConnectionFactory.getInstance().getConnection();
+       Mapa mapa;
+       try{
+           PreparedStatement stmt = connection.prepareStatement(sql);
+           ResultSet resultSet = stmt.executeQuery();
+           resultSet.next();
+           mapa =  new Mapa("Brasil", resultSet.getString("theGeom"), resultSet.getString("svg"));
+       }finally{
+           connection.close();
+       }
+       return mapa;
+   }
+   
    public Mapa getMapaPeloRaioDeUmPonto(double latitude, double longitude, int raioKm, String nomeLugar) throws SQLException{
        String sql = "SELECT (ST_UNION(the_geom)) as theGeom, ST_AsSVG(ST_UNION(the_geom)) AS svg FROM municipio WHERE ST_DISTANCE(the_geom,ST_Point(?, ?)) * 111.32 <= ?";
        Connection connection = ConnectionFactory.getInstance().getConnection();

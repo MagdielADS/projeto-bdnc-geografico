@@ -79,6 +79,9 @@ public class obterGeometria extends HttpServlet {
                     mapa = geometriaDAO.getMapaRegiao(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
                     break;
+                default:
+                    mapa = geometriaDAO.getMapaBrasil();
+                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
             }
             request.setAttribute("geometria", mapa.getGeometriaSVG());
             request.setAttribute("nomeGeometria", mapa.getNome());

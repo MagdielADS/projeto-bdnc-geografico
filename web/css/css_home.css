@@ -1,0 +1,123 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/05/2014, 10:09:23
+    Author     : magdiel-bruno
+*/
+
+#container{
+    width: 1024px;
+    height: 625px;
+    border: 1px solid white;
+    margin-left: 160px;
+}
+
+#Container_logo{
+    width: 93.8%;
+    height: 15%;
+    border: 1px solid yellow;
+    margin-left: 3%;
+    background: greenyellow;
+}
+
+#image_logo{
+    width: 20%;
+    height: 80%;
+    margin-top: 1%;
+    margin-left: 0.3%;
+}
+
+#container_menu{
+    width: 93.8%;
+    height: 5%;
+    border: 1px solid yellow;
+    margin-top: 0%;
+    margin-left: 3%;
+    background: green;   
+}
+
+#menu_it1{
+    margin-top: 0.5%;
+    margin-left: 70%;
+    float: left;
+    color:#fff;
+}
+
+#container_menu a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
+#menu_it2{
+    margin-top: 0.5%; 
+    margin-left: 2%;
+    float: left;
+    color:#fff;
+}
+
+#menu_it3{
+    margin-top: 0.5%; 
+    margin-left: 2%;
+    float: left;
+    color:#fff;
+}
+
+#menu_it4{
+    margin-top: 0.5%;
+    margin-left: 2%;
+    float: left;
+    color:#fff;
+}
+
+#container_centro{
+    width: 60%;
+    height: 70%;
+    border: 1px solid white;
+    margin-top: 2%;
+    margin-left: 20%;  
+}    
+
+#image_centro{
+    width: 68.4%;
+    height: 97%;
+    border: 1px solid white;
+    margin-top: 1%;
+    margin-left: 15%; 
+}
+
+#form{
+    width: 93.8%;
+    height: 20%;
+    margin-top: 0.1%;
+    margin-left: 3%;
+    background:#fff;
+}
+
+#form_search{
+    margin-top: 3%;
+    margin-left: 3%;
+    
+}
+
+#form_search label{
+    color: blue;
+    font-size: 13pt;
+}
+
+#form_search input[type=search]{
+    
+}
+
+#svg{
+    width: 70%;
+    height: 80%;
+    border: 1px solid black;
+    margin-top: 0.1%;
+    margin-left: 15%;
+    background:#fff;
+}

@@ -11,6 +11,7 @@ import dao.ViewBoxDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -45,14 +46,15 @@ public class obterMunicipiosRaio extends HttpServlet {
             int raioKm = Integer.parseInt(request.getParameter("raio"));
             String nomeGeometria = "Cidades: em um raio de "+raioKm+" Km "+"do ponto: "+latitude+" "+longitude; 
             Mapa mapa = geometriaDao.getMapaPeloRaioDeUmPonto(latitude, longitude, raioKm, nomeGeometria);
-
+            ArrayList<Mapa> mapas = geometriaDao.getMapasPeloRaioDeUmPonto(latitude, longitude, raioKm, nomeGeometria);
             String viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
            
             request.setAttribute("geometria", mapa.getGeometriaSVG());
             request.setAttribute("nomeGeometria", nomeGeometria);
             request.setAttribute("viewBox", viewBox);
+            request.setAttribute("mapas", mapas);
             request.setAttribute("desenharGeometria", true);
-            request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
             
         } catch (SQLException ex) {
             Logger.getLogger(obterMunicipiosRaio.class.getName()).log(Level.SEVERE, null, ex);

@@ -91,7 +91,7 @@ public class obterGeometria extends HttpServlet {
             request.setAttribute("viewBox", viewBox);
             request.setAttribute("mapas", mapas);
             request.setAttribute("desenharGeometria", true);
-            request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
             
         } catch (SQLException ex) {
             Logger.getLogger(obterGeometria.class.getName()).log(Level.SEVERE, null, ex);

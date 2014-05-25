@@ -5,5 +5,5 @@
  */
 
 function Info(evt){
-    alert("Maxima de " +evt.target.getAttribute("id"));  
+    alert(evt.target.getAttribute("id"));  
 }

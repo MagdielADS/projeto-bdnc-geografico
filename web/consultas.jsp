@@ -35,16 +35,52 @@
             </div>
             <div id="form">
                 <div id="form_search">
-                    
-                    <!-- COLOCA O FORM DE CONSULTA AQUI!!! -->
-                    
+
+                    <form method="POST" action="obterGeometria">
+                        <input type="text" name="nomeGeometria" placeholder="Nome" required>
+                        <select name="tipo">
+                            <option value="municipio">Município</option>
+                            <option value="estado">Estado</option>
+                            <option value="microrregiao">Microrregião</option>
+                            <option value="messorregiao">Messorregião</option>
+                            <option value="regiao">Região</option>
+                        </select>
+                        <input type="submit" value="Pesquisar">
+                    </form>
+
+                    <form method="POST" action="obterMunicipiosRaio">
+                        <input type="text" name="latitude" placeholder="Latitude">
+                        <input type="text" name="longitude" placeholder="Longintude">
+                        <input type="text" name="raio" placeholder="Raio">
+                        <input type="submit" value="Pesquisar">
+                    </form> 
+
                 </div>
             </div>
             <div id="svg">
                 <div id="geom">
-                    
-                    <!-- COLOCA O SVG DE RESPOSTA AQUI!!! -->
-                    
+
+                    <?xml version='1.0' encoding='utf-8' ?>
+                    <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1 Basic//EN'
+                        'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-basic.dtd'>
+                    <c:if test="${desenharGeometria == true}">
+                        <svg xmlns='http://www.w3.org/2000/svg'
+                             xmlns:xlink='http:www.w3.org/1999/xlink'
+                             width='800' height='800' viewBox='${viewBox}'>
+                        <script type='text/ecmascript' xlink:href='js/funcoes.js'> </script>
+                        <g id='grupo'>
+                        <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0002' 
+                              onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${geometria}'/>
+
+
+                        <c:forEach var="mapa" items="${mapas}">
+                            <path id='${mapa.getNome()}' fill='green' fill-opacity='0.2' stroke='white' stroke-width='0.0090' 
+                                  onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${mapa.getGeometriaSVG()}'/>
+                        </c:forEach>
+
+                        </g>
+                        </svg>
+                    </c:if>
                 </div>
             </div>            
         </div>   

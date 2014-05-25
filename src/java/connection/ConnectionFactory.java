@@ -22,9 +22,11 @@ public class ConnectionFactory {
     private final String senha;
 
     private ConnectionFactory() {
-        this.url = "jdbc:postgresql://localhost:5432/bdnc_aula1";
+        //this.url = "jdbc:postgresql://localhost:5432/bdnc_aula1";
+        this.url = "jdbc:postgresql://localhost:5433/bdnc_aula1";
         this.usuario = "postgres";
-        this.senha = "123456";
+        //this.senha = "123456";
+        this.senha = "123";
     }
 
     public static ConnectionFactory getInstance() {

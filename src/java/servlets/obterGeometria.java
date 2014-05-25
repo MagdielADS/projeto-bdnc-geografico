@@ -11,6 +11,7 @@ import dao.GeometriaDAO;
 import dao.ViewBoxDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,6 +47,7 @@ public class obterGeometria extends HttpServlet {
             String tipo = request.getParameter("tipo");
             String viewBox = null;
             Mapa mapa = null;
+            ArrayList<Mapa> mapas = null;
             Coordenadas coordenadas;
             
           
@@ -66,26 +68,28 @@ public class obterGeometria extends HttpServlet {
                 case "estado":
                     mapa = geometriaDAO.getMapaEstado(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    mapas = geometriaDAO.getMapasMunicipiosEstado(nomeGeometria);
                     break;
                 case "microrregiao":
                     mapa = geometriaDAO.getMapaMicro(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    mapas = geometriaDAO.getMapasMunicipiosDaMicrorregiao(nomeGeometria);
                     break;
                 case "messorregiao":
                     mapa = geometriaDAO.getMapaMeso(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    mapas = geometriaDAO.getMapasMicrorregioesDaMessorregiao(nomeGeometria);
                     break;
                 case "regiao":
                     mapa = geometriaDAO.getMapaRegiao(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
+                    mapas = geometriaDAO.getMapasEstadosRegiao(nomeGeometria);
                     break;
-                default:
-                    mapa = geometriaDAO.getMapaBrasil();
-                    viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
             }
             request.setAttribute("geometria", mapa.getGeometriaSVG());
-            request.setAttribute("nomeGeometria", mapa.getNome());
+            request.setAttribute("nomeGeometria", nomeGeometria);
             request.setAttribute("viewBox", viewBox);
+            request.setAttribute("mapas", mapas);
             request.setAttribute("desenharGeometria", true);
             request.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
             

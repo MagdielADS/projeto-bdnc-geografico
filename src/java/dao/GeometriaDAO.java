@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import mapa.Mapa;
 
 /**
@@ -55,6 +56,43 @@ public class GeometriaDAO {
        }
        return mapa;
    }
+   
+       public ArrayList<Mapa> getMapasMunicipiosEstado(String siglaEstado) throws SQLException {
+        String sql = "SELECT M.nome_municipio AS nomeMunicipio, M.the_geom as theGeom, ST_AsSVG(M.the_geom) AS svg "
+                + "FROM estado E, municipio M, mesorregiao MESO, microrregiao MICRO "
+                + " WHERE E.sigla_estado ilike ? AND "
+                + "E.cod_estado = MESO.gid_estado AND MESO.cod_meso = MICRO.gid_meso AND MICRO.cod_micro = M.gid_micro";
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        ArrayList<Mapa> mapas = new ArrayList();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, siglaEstado);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                mapas.add(new Mapa(resultSet.getString("nomeMunicipio"), resultSet.getString("theGeom"), resultSet.getString("svg")));
+            }
+        } finally {
+            connection.close();
+        }
+        return mapas;
+    }
+
+    public ArrayList<Mapa> getMapasMunicipiosDaMicrorregiao(String siglaEstado) throws SQLException {
+        String sql = "SELECT M.nome_municipio AS nomeMunicipio, M.the_geom as theGeom, ST_AsSVG(M.the_geom) AS svg FROM municipio M, microrregiao MICRO WHERE MICRO.cod_micro = M.gid_micro AND MICRO.nome_micro ilike ?";
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        ArrayList<Mapa> mapas = new ArrayList();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, siglaEstado);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                mapas.add(new Mapa(resultSet.getString("nomeMunicipio"), resultSet.getString("theGeom"), resultSet.getString("svg")));
+            }
+        } finally {
+            connection.close();
+        }
+        return mapas;
+    }
    
    public Mapa getMapaMicro(String nomeMicro) throws SQLException{
        String sql = "SELECT the_geom as theGeom, ST_AsSVG(the_geom) AS svg FROM microrregiao WHERE nome_micro ilike ?";
@@ -103,6 +141,25 @@ public class GeometriaDAO {
        }
        return mapa;
    }
+   
+       public ArrayList<Mapa> getMapasMicrorregioesDaMessorregiao(String nomeMeso) throws SQLException {
+        String sql = "SELECT MICRO.nome_micro nomeMicro, MICRO.the_geom as theGeom, ST_AsSVG(MICRO.the_geom) AS svg FROM mesorregiao MESO, microrregiao MICRO "
+                    + "WHERE MESO.nome_meso ilike ? AND MESO.cod_meso = MICRO.gid_meso";
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        ArrayList<Mapa> mapas = new ArrayList();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, nomeMeso);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                mapas.add(new Mapa(resultSet.getString("nomeMicro"), resultSet.getString("theGeom"), resultSet.getString("svg")));
+            }
+        } finally {
+            connection.close();
+        }
+        return mapas;
+    }
+
    
    public Mapa getMapaBrasil() throws SQLException{
        String sql = "SELECT the_geom as theGeom, ST_AsSVG(the_geom) AS svg from pais";
@@ -167,6 +224,24 @@ public class GeometriaDAO {
        }
        return centroide;
    }
+   
+       public ArrayList<Mapa> getMapasEstadosRegiao(String nomeRegiao) throws SQLException {
+        String sql = "SELECT E.sigla_estado AS siglaEstado, E.the_geom as theGeom, ST_AsSVG(E.the_geom) AS svg "
+                + "FROM estado E, Regiao R WHERE R.gid = E.gid_regiao AND R.nome_regiao ilike ?";
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        ArrayList<Mapa> mapas = new ArrayList();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, nomeRegiao);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                mapas.add(new Mapa(resultSet.getString("siglaEstado"), resultSet.getString("theGeom"), resultSet.getString("svg")));
+            }
+        } finally {
+            connection.close();
+        }
+        return mapas;
+    }
    
 //   
 //   public String getGeometriaAsSVG(String geometria) throws SQLException{

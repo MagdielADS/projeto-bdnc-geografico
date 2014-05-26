@@ -68,7 +68,8 @@ public class obterGeometria extends HttpServlet {
                 case "estado":
                     mapa = geometriaDAO.getMapaEstado(nomeGeometria);
                     viewBox = viewBoxDAO.getTamanhoViewBox(mapa.getGeometria());
-                    mapas = geometriaDAO.getMapasMunicipiosEstado(nomeGeometria);
+                    String siglaEstado = geometriaDAO.getSiglaEstado(nomeGeometria);
+                    mapas = geometriaDAO.getMapasMunicipiosEstado(siglaEstado);
                     break;
                 case "microrregiao":
                     mapa = geometriaDAO.getMapaMicro(nomeGeometria);

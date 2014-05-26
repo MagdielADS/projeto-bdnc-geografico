@@ -24,20 +24,22 @@ public class main {
         ViewBoxDAO viewBoxDAO = new ViewBoxDAO();
         try {
             Coordenadas coordenadas = geometriaDAO.getCoordenadasDeUmPonto("010100000069FA4054579D41C0B80370CC5E3617C0");
-            LerArquivoXML lerArquivoXML = new LerArquivoXML(coordenadas);
-            Previsao previsao = lerArquivoXML.lerAquivoRtornandoPrevisao();
+//            LerArquivoXML lerArquivoXML = new LerArquivoXML(coordenadas);
+//            Previsao previsao = lerArquivoXML.lerAquivoRtornandoPrevisao();
+//
+//            System.out.println(previsao.getNomeCidade());
+//            System.out.println(previsao.getUf());
+//            System.out.println("Datas");
+//            for (int i = 0; i < previsao.getListaDadosPrevisao().size();i++) {
+//                System.out.println(previsao.getListaDadosPrevisao().get(i).getData());
+//                System.out.println(previsao.getListaDadosPrevisao().get(i).getTempo());
+//                System.out.println(previsao.getListaDadosPrevisao().get(i).getMaxima());
+//                System.out.println(previsao.getListaDadosPrevisao().get(i).getMinima());
+//                System.out.println(previsao.getListaDadosPrevisao().get(i).getIuv());
+//            }
 
-            System.out.println(previsao.getNomeCidade());
-            System.out.println(previsao.getUf());
-            System.out.println("Datas");
-            for (int i = 0; i < previsao.getListaDadosPrevisao().size();i++) {
-                System.out.println(previsao.getListaDadosPrevisao().get(i).getData());
-                System.out.println(previsao.getListaDadosPrevisao().get(i).getTempo());
-                System.out.println(previsao.getListaDadosPrevisao().get(i).getMaxima());
-                System.out.println(previsao.getListaDadosPrevisao().get(i).getMinima());
-                System.out.println(previsao.getListaDadosPrevisao().get(i).getIuv());
-            }
-
+            System.out.println(geometriaDAO.getSiglaEstado("Paraíba"));
+            
         } catch (SQLException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

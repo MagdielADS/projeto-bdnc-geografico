@@ -41,12 +41,13 @@ public class GeometriaDAO {
     }
 
     public Mapa getMapaEstado(String siglaEstado) throws SQLException {
-        String sql = "SELECT the_geom as theGeom, ST_AsSVG(the_geom) AS svg FROM estado WHERE sigla_estado ilike ?";
+        String sql = "SELECT the_geom as theGeom, ST_AsSVG(the_geom) AS svg FROM estado WHERE sigla_estado ilike ? OR nome_estado ilike ?";
         Connection connection = ConnectionFactory.getInstance().getConnection();
         Mapa mapa;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, siglaEstado);
+            stmt.setString(2, siglaEstado);
             ResultSet resultSet = stmt.executeQuery();
             resultSet.next();
             mapa = new Mapa(siglaEstado, resultSet.getString("theGeom"), resultSet.getString("svg"));
@@ -55,7 +56,22 @@ public class GeometriaDAO {
         }
         return mapa;
     }
-
+    
+    public String getSiglaEstado(String nome) throws SQLException{
+        String sql = "SELECT sigla_estado AS sigla FROM estado WHERE nome_estado ilike ?";
+        Connection connection = ConnectionFactory.getInstance().getConnection();
+        String siglaEstado = null;
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, nome);
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
+            siglaEstado = resultSet.getString("sigla");
+        }finally {
+            connection.close();
+        }
+        return siglaEstado;
+    }
     public ArrayList<Mapa> getMapasMunicipiosEstado(String siglaEstado) throws SQLException {
         String sql = "SELECT M.nome_municipio AS nomeMunicipio, M.the_geom as theGeom, ST_AsSVG(M.the_geom) AS svg "
                 + "FROM estado E, municipio M, mesorregiao MESO, microrregiao MICRO "

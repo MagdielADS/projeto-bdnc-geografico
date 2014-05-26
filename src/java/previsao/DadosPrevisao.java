@@ -66,8 +66,5 @@ public class DadosPrevisao {
     public void setIuv(String iuv) {
         this.iuv = iuv;
     }
-
-    
-    
     
 }

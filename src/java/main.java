@@ -23,35 +23,19 @@ public class main {
         GeometriaDAO geometriaDAO = new GeometriaDAO();
         ViewBoxDAO viewBoxDAO = new ViewBoxDAO();
         try {
-            Coordenadas coordenadas = geometriaDAO.getCoordenadasDeUmPonto("010100000067B5CBF5A44543C0E32EAD2479AD1BC0");
+            Coordenadas coordenadas = geometriaDAO.getCoordenadasDeUmPonto("010100000069FA4054579D41C0B80370CC5E3617C0");
             LerArquivoXML lerArquivoXML = new LerArquivoXML(coordenadas);
             Previsao previsao = lerArquivoXML.lerAquivoRtornandoPrevisao();
-            
+
             System.out.println(previsao.getNomeCidade());
             System.out.println(previsao.getUf());
             System.out.println("Datas");
-            for (int i = 0; i < previsao.getDatas().size(); i++) {
-                System.out.println(previsao.getDatas().get(i));
-            }
-            
-            System.out.println("Tempos");
-            for (int i = 0; i < previsao.getTempos().size(); i++) {
-                System.out.println(previsao.getTempos().get(i));
-            }
-            
-            System.out.println("Maximas");
-            for (int i = 0; i < previsao.getMaximas().size(); i++) {
-                System.out.println(previsao.getMaximas().get(i));
-            }
-            
-            System.out.println("Minimas");
-            for (int i = 0; i < previsao.getMinimas().size(); i++) {
-                System.out.println(previsao.getMinimas().get(i));
-            }
-            
-            System.out.println("Iuvs");
-            for (int i = 0; i < previsao.getIuvs().size(); i++) {
-                System.out.println(previsao.getIuvs().get(i));
+            for (int i = 0; i < previsao.getListaDadosPrevisao().size();i++) {
+                System.out.println(previsao.getListaDadosPrevisao().get(i).getData());
+                System.out.println(previsao.getListaDadosPrevisao().get(i).getTempo());
+                System.out.println(previsao.getListaDadosPrevisao().get(i).getMaxima());
+                System.out.println(previsao.getListaDadosPrevisao().get(i).getMinima());
+                System.out.println(previsao.getListaDadosPrevisao().get(i).getIuv());
             }
 
         } catch (SQLException ex) {

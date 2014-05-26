@@ -15,20 +15,17 @@ import java.util.ArrayList;
 public class Previsao {
     private String nomeCidade;
     private String uf;
-    private ArrayList<String> datas;
-    private ArrayList<String> tempos;
-    private ArrayList<String> maximas;
-    private ArrayList<String> minimas;
-    private ArrayList<String> iuvs;
+//    private ArrayList<String> datas;
+//    private ArrayList<String> tempos;
+//    private ArrayList<String> maximas;
+//    private ArrayList<String> minimas;
+//    private ArrayList<String> iuvs;
+    private ArrayList<DadosPrevisao> listaDadosPrevisao;
 
-    public Previsao(String nomeCidade, String uf, ArrayList<String> datas, ArrayList<String> tempos, ArrayList<String> maximas, ArrayList<String> minimas, ArrayList<String> iuvs) {
+    public Previsao(String nomeCidade, String uf, ArrayList<DadosPrevisao> listaDadosPrevisao) {
         this.nomeCidade = nomeCidade;
         this.uf = uf;
-        this.datas = datas;
-        this.tempos = tempos;
-        this.maximas = maximas;
-        this.minimas = minimas;
-        this.iuvs = iuvs;
+        this.listaDadosPrevisao = listaDadosPrevisao;
     }
 
     public String getNomeCidade() {
@@ -47,45 +44,12 @@ public class Previsao {
         this.uf = uf;
     }
 
-    public ArrayList<String> getDatas() {
-        return datas;
+    public ArrayList<DadosPrevisao> getListaDadosPrevisao() {
+        return listaDadosPrevisao;
     }
 
-    public void setDatas(ArrayList<String> datas) {
-        this.datas = datas;
+    public void setListaDadosPrevisao(ArrayList<DadosPrevisao> listaDadosPrevisao) {
+        this.listaDadosPrevisao = listaDadosPrevisao;
     }
-
-    public ArrayList<String> getTempos() {
-        return tempos;
-    }
-
-    public void setTempos(ArrayList<String> tempos) {
-        this.tempos = tempos;
-    }
-
-    public ArrayList<String> getMaximas() {
-        return maximas;
-    }
-
-    public void setMaximas(ArrayList<String> maximas) {
-        this.maximas = maximas;
-    }
-
-    public ArrayList<String> getMinimas() {
-        return minimas;
-    }
-
-    public void setMinimas(ArrayList<String> minimas) {
-        this.minimas = minimas;
-    }
-
-    public ArrayList<String> getIuvs() {
-        return iuvs;
-    }
-
-    public void setIuvs(ArrayList<String> iuvs) {
-        this.iuvs = iuvs;
-    }
-
     
 }

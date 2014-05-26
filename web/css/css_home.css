@@ -13,6 +13,7 @@ and open the template in the editor.
     height: 625px;
     border: 1px solid white;
     margin-left: 160px;
+
 }
 
 #Container_logo{
@@ -80,7 +81,14 @@ and open the template in the editor.
     border: 1px solid white;
     margin-top: 2%;
     margin-left: 20%;  
-}    
+}   
+
+#container_centro p{
+    text-align: justify;
+    font-family: arial;
+    font-size: 12pt;
+    font-style: oblique;
+}
 
 #image_centro{
     width: 68.4%;
@@ -100,8 +108,41 @@ and open the template in the editor.
 
 #form_search{
     margin-top: 3%;
-    margin-left: 3%;
-    
+    margin-left: 3%;   
+}
+
+#des1{
+    width: 93.7%;
+    height: 45%;
+    border: 1px solid green;
+    margin-top: 1%;
+    margin-left: 3%; 
+}
+
+#des2{
+    width: 93.7%;
+    height: 45%;
+    border: 1px solid green;
+    margin-top: 3%;
+    margin-left: 3%; 
+}
+
+#photo{
+    width: 30%;
+    height: 90%;
+/*    border: 1px solid black;*/
+    text-align: center;
+    float: left;
+    margin-top: 3%;
+}
+
+#text{
+    width: 66%;
+    height: 90%;
+/*    border: 1px solid black;*/
+    margin-top: 1.2%;
+    margin-left: 2%;
+    float: left;
 }
 
 #form_search label{
@@ -114,10 +155,51 @@ and open the template in the editor.
 }
 
 #svg{
-    width: 70%;
+    width: 50%;
     height: 80%;
-    border: 1px solid black;
+/*    border: 1px solid black;*/
     margin-top: 0.1%;
-    margin-left: 15%;
+    margin-left: 3%;
+    margin-right: 15%;
     background:#fff;
+    float: left;
+}
+
+#previsao{
+    float: left;
+    width: 30%;
+/*    border: 1px solid black;*/
+}
+
+
+#previsao table{
+    border-collapse: collapse;
+}
+
+#previsao table tr th, td{
+    border: 1px solid black;
+}
+
+#previsao table tr th{
+    background: #008000;
+    color: white;
+}
+
+#previsao table tr, td{
+    text-align: left;
+}
+
+#previsao table tr .data{
+    width: 20%;
+}
+
+#previsao table tr .maxima, .minima{
+    width: 5%;
+}
+
+#municipio{
+    font-size: 20pt;
+    margin-left: 40%;
+    height: 7%;
+    float: left;
 }

@@ -21,13 +21,13 @@
             </div>
             <div id="container_menu">
                 <div id="menu_it1">
-                    <a href="sobre.jsp">O projeto</a>
+                    <a href="sobre.jsp">O Projeto</a>
                 </div>
                 <div id="menu_it2">
                     <a href="consultas.jsp">Consultas</a>
                 </div>
                 <div id="menu_it3">
-                    <a href="#">Desenvolvedores</a>
+                    <a href="desenvolvedores.jsp">Desenvolvedores</a>
                 </div>
             </div>
             

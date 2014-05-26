@@ -25,6 +25,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import previsao.DadosPrevisao;
 import previsao.Previsao;
 /**
  *
@@ -39,7 +40,8 @@ public class LerArquivoXML {
     public LerArquivoXML(Coordenadas coordenadas) {
        try {
             this.url = new URL("http://servicos.cptec.inpe.br/XML/cidade/7dias/" + coordenadas.getLatitude() + "/" + coordenadas.getLongitude() + "/previsaoLatLon.xml");
-        } catch (MalformedURLException ex) {
+            System.out.println(this.url);
+       } catch (MalformedURLException ex) {
             Logger.getLogger(LerArquivoXML.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.filepath = new File(url.toString());
@@ -100,8 +102,13 @@ public class LerArquivoXML {
                 iuvs.add(nodeListIuvs.item(i).getTextContent());
             }
 
-            
-            previsao = new Previsao(nomeCidade, uf, datas, tempos, maximas, minimas, iuvs);
+            ArrayList<DadosPrevisao> listaDadosPrevisao = new ArrayList();
+            for(int i = 0; i < nodeListDatas.getLength(); i++){
+                listaDadosPrevisao.add(new DadosPrevisao(nodeListDatas.item(i).getTextContent(),nodeListTempo.item(i).getTextContent(),
+                        nodeListMaximas.item(i).getTextContent(), nodeListMinimas.item(i).getTextContent(), 
+                        nodeListIuvs.item(i).getTextContent()));
+            }
+            previsao = new Previsao(nomeCidade, uf, listaDadosPrevisao);
         
         } catch (IOException ex) {
             Logger.getLogger(LerArquivoXML.class.getName()).log(Level.SEVERE, null, ex);

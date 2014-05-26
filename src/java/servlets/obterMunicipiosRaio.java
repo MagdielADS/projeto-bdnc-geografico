@@ -54,10 +54,12 @@ public class obterMunicipiosRaio extends HttpServlet {
             request.setAttribute("viewBox", viewBox);
             request.setAttribute("mapas", mapas);
             request.setAttribute("desenharGeometria", true);
+            request.setAttribute("raio", true);
             request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(obterMunicipiosRaio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            request.setAttribute("erro", true);
+            request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
         }
     }
 

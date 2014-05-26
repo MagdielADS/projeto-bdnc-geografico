@@ -5,5 +5,14 @@
  */
 
 function Info(evt){
-    alert(evt.target.getAttribute("id"));  
+//    alert(evt.target.getAttribute("id")); 
+    document.getElementById('municipio').innerHTML = evt.target.getAttribute("id");
+}
+
+function Destaca(evt){
+	evt.target.setAttribute("fill", "blue");
+}
+
+function Normal(evt){
+	evt.target.setAttribute("fill", "green");
 }

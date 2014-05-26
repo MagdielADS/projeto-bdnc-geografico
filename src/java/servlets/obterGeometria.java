@@ -63,7 +63,7 @@ public class obterGeometria extends HttpServlet {
                     
                     LerArquivoXML laXML = new LerArquivoXML(coordenadas);
                     Previsao previsao = laXML.lerAquivoRtornandoPrevisao();
-                    request.setAttribute("segmax", previsao.getMaximas().get(2));
+                    request.setAttribute("previsao", previsao);
                     break;
                 case "estado":
                     mapa = geometriaDAO.getMapaEstado(nomeGeometria);
@@ -93,8 +93,9 @@ public class obterGeometria extends HttpServlet {
             request.setAttribute("desenharGeometria", true);
             request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
             
-        } catch (SQLException ex) {
-            Logger.getLogger(obterGeometria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            request.setAttribute("erro", true);
+            request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
         }
         
     }

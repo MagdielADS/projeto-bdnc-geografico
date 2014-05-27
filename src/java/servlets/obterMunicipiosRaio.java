@@ -54,7 +54,9 @@ public class obterMunicipiosRaio extends HttpServlet {
             request.setAttribute("viewBox", viewBox);
             request.setAttribute("mapas", mapas);
             request.setAttribute("desenharGeometria", true);
-            request.setAttribute("raio", true);
+            request.setAttribute("raio", raioKm);
+            request.setAttribute("latitude", latitude);
+            request.setAttribute("longitude", longitude);
             request.getServletContext().getRequestDispatcher("/consultas.jsp").forward(request, response);
             
         } catch (Exception ex) {

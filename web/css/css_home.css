@@ -159,7 +159,7 @@ and open the template in the editor.
     height: 80%;
 /*    border: 1px solid black;*/
     margin-top: 0.1%;
-    margin-left: 3%;
+    margin-left: 1%;
     margin-right: 15%;
     background:#fff;
     float: left;
@@ -206,4 +206,12 @@ and open the template in the editor.
 
 h2{
    text-align: center;
+}
+
+#InfoRaio{
+    margin-bottom: 10%;
+}
+
+#InfoRaio p span{
+    font-weight: bold;
 }

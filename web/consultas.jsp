@@ -51,7 +51,7 @@
                     <form method="POST" action="obterMunicipiosRaio">
                         <input type="text" name="latitude" placeholder="Latitude" required>
                         <input type="text" name="longitude" placeholder="Longintude" required>
-                        <input type="text" name="raio" placeholder="Raio" required>
+                        <input type="text" name="raio" placeholder="Raio (Km)" required>
                         <input type="submit" value="Pesquisar">
                     </form> 
 
@@ -82,6 +82,11 @@
                                     <path id='${mapa.getNome()}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
                                           onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${mapa.getGeometriaSVG()}'/>
                                 </c:forEach>
+                                <div id="InfoRaio">
+                                    <p><span>Latutude:</span> ${latitude}</p>
+                                    <p><span>Longitude:</span> ${longitude}</p>
+                                    <p><span>Raio:</span> ${raio}</p>
+                                </div>
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="mapa" items="${mapas}">
@@ -90,7 +95,7 @@
                                 </c:forEach>
                                 <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
                                       onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${geometria}'/>
-                            </c:otherwise>        
+                            </c:otherwise>
                         </c:choose>
                         </g>
                         </svg>
@@ -104,10 +109,10 @@
                         <table>
                             <tr>
                                 <th>Data</th>
-<!--                                <th>Tempo</th>-->
+                                <!--                                <th>Tempo</th>-->
                                 <th>Maxima</th>
                                 <th>Minima</th>
-<!--                                <th>Iuv</th>-->
+                                <!--                                <th>Iuv</th>-->
                             </tr>
                             <c:forEach var="prev" items="${previsao.listaDadosPrevisao}">
                                 <tr>

@@ -76,7 +76,7 @@
                         <g id='grupo'>
                         <c:choose>
                             <c:when test="${raio != null}">
-                                <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0002' 
+                                <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
                                       onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${geometria}'/>
                                 <c:forEach var="mapa" items="${mapas}">
                                     <path id='${mapa.getNome()}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
@@ -88,7 +88,7 @@
                                     <path id='${mapa.getNome()}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
                                           onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${mapa.getGeometriaSVG()}'/>
                                 </c:forEach>
-                                <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0002' 
+                                <path id='${nomeGeometria}' fill='green' fill-opacity='0.2' stroke='red' stroke-width='0.0099' 
                                       onmouseover='Destaca(evt)' onmouseout='Normal(evt)' onclick='Info(evt)' d='${geometria}'/>
                             </c:otherwise>        
                         </c:choose>
